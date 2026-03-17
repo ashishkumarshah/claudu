@@ -1,12 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>claudu</title>
+  <meta charset="UTF-8">
+  <title>claudu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .muted {
+      color: #8b949e;
+    }
+
+    .command {
+      width: 100%;
+      background: transparent;
+      border: 1px solid #30363d;
+      color: #3fb950;
+      padding: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      margin: 16px 0;
+    }
+
+    .command:hover {
+      border-color: #3fb950;
+    }
+
+    .footer {
+      margin-top: 40px;
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #30363d;
+      margin: 32px 0;
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>Your GitHub Pages site is working.</p>
+  <div class="container">
+    <pre>
+claudu
+<span class="muted">/ˈklɔːduː/</span>
+noun <span class="muted">(slang, vulgar)</span>
+
+A person who has stopped thinking and now relies entirely on AI.
+
+“Don’t be a claudu.”
+
+
+Or you can choose it.
+    </pre>
+
+    <textarea 
+      class="command" 
+      rows="2" 
+      readonly 
+      onclick="this.select()"
+    >echo 'alias claudu="claude --dangerously-skip-permissions"' >> ~/.zshrc</textarea>
+
+    <pre>
+You won’t need to think anymore.
+    </pre>
+
+    <hr>
+
+    <div class="footer">
+      written by a claudu, using ChatGPT
+    </div>
+  </div>
 </body>
 </html>
