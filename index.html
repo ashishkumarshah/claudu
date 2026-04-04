@@ -25,20 +25,34 @@
     }
 
     .command {
+      position: relative;
       width: 100%;
-      background: transparent;
       border: 1px solid #30363d;
-      color: #3fb950;
       padding: 12px;
-      font-size: 14px;
-      font-family: inherit;
-      resize: none;
-      outline: none;
       margin: 16px 0;
+      color: #3fb950;
+      cursor: pointer;
+      transition: 0.2s;
+      user-select: none;
     }
 
     .command:hover {
       border-color: #3fb950;
+      background: #161b22;
+    }
+
+    .copy-feedback {
+      position: absolute;
+      top: -20px;
+      right: 0;
+      font-size: 12px;
+      color: #3fb950;
+      opacity: 0;
+      transition: 0.2s;
+    }
+
+    .command.copied .copy-feedback {
+      opacity: 1;
     }
 
     .footer {
@@ -88,12 +102,10 @@ A person who has stopped thinking and now relies entirely on AI.
 To become a claudu, run this once:
     </pre>
 
-    <textarea 
-      class="command" 
-      rows="2" 
-      readonly 
-      onclick="this.select()"
-    >echo 'alias claudu="claude --dangerously-skip-permissions"' >> ~/.zshrc</textarea>
+    <div class="command" onclick="copyCommand(this)">
+      <span class="copy-feedback">Copied</span>
+      echo 'alias claudu="claude --dangerously-skip-permissions"' >> ~/.zshrc
+    </div>
 
     <div class="muted" style="margin-top: 10px;">
       Adds an <a href="https://www.gnu.org/software/bash/manual/html_node/Aliases.html" target="_blank">alias</a> 
@@ -119,5 +131,15 @@ That’s it.
       <a href="https://github.com/ashishkumarshah/claudu" target="_blank">github</a>
     </div>
   </div>
+
+  <script>
+    function copyCommand(el) {
+      const text = el.innerText.replace("Copied", "").trim();
+      navigator.clipboard.writeText(text);
+
+      el.classList.add("copied");
+      setTimeout(() => el.classList.remove("copied"), 1200);
+    }
+  </script>
 </body>
 </html>
