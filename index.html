@@ -28,17 +28,36 @@
       position: relative;
       width: 100%;
       border: 1px solid #30363d;
-      padding: 12px;
+      padding: 12px 40px 12px 12px;
       margin: 16px 0;
       color: #3fb950;
       cursor: pointer;
       transition: 0.2s;
       user-select: none;
+      font-size: 14px;
+      word-break: break-all;
     }
 
     .command:hover {
       border-color: #3fb950;
       background: #161b22;
+    }
+
+    .command-text {
+      display: block;
+    }
+
+    .copy-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+      transition: 0.2s;
+    }
+
+    .command:hover .copy-icon {
+      opacity: 1;
     }
 
     .copy-feedback {
@@ -104,7 +123,17 @@ To become a claudu, run this once:
 
     <div class="command" onclick="copyCommand(this)">
       <span class="copy-feedback">Copied</span>
-      echo 'alias claudu="claude --dangerously-skip-permissions"' >> ~/.zshrc
+
+      <span class="command-text">
+        echo 'alias claudu="claude --dangerously-skip-permissions"' >> ~/.zshrc
+      </span>
+
+      <span class="copy-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M10 1H2a1 1 0 0 0-1 1v10h1V2h8V1z"/>
+          <path d="M14 3H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm0 11H6V4h8v10z"/>
+        </svg>
+      </span>
     </div>
 
     <div class="muted" style="margin-top: 10px;">
@@ -135,7 +164,17 @@ That’s it.
   <script>
     function copyCommand(el) {
       const text = el.innerText.replace("Copied", "").trim();
-      navigator.clipboard.writeText(text);
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
 
       el.classList.add("copied");
       setTimeout(() => el.classList.remove("copied"), 1200);
